@@ -1,60 +1,43 @@
-// El principal objetivo de este desafío es fortalecer tus habilidades en lógica de programación. Aquí deberás desarrollar la lógica para resolver el problema.
-// Array para almacenar los nombres de los amigos
+// Declarar un array para almacenar los nombres de los amigos
 let amigos = [];
 
+// Función para agregar amigos a la lista
 function agregarAmigo() {
-    const input = document.getElementById("amigo");
-    const nombre = input.value.trim();
-
-    // Validar que el nombre no esté vacío
+    let input = document.getElementById("amigo");
+    let nombre = input.value.trim();
+    
     if (nombre === "") {
-        alert("Por favor, ingrese un nombre válido.");
+        alert("Por favor, inserte un nombre.");
         return;
     }
-
-    // Agregar el nombre a la lista y limpiar el input
+    
     amigos.push(nombre);
     input.value = "";
-
-    // Mostrar la lista actualizada
     actualizarLista();
 }
 
+// Función para actualizar la lista en el HTML
 function actualizarLista() {
-    const listaAmigos = document.getElementById("listaAmigos");
-    listaAmigos.innerHTML = "";
-
-    amigos.forEach((amigo, index) => {
-        const li = document.createElement("li");
+    let lista = document.getElementById("listaAmigos");
+    lista.innerHTML = ""; // Limpiar la lista antes de actualizarla
+    
+    for (let amigo of amigos) {
+        let li = document.createElement("li");
         li.textContent = amigo;
-
-        // Botón para eliminar un nombre de la lista
-        const btnEliminar = document.createElement("button");
-        btnEliminar.textContent = "❌";
-        btnEliminar.style.marginLeft = "10px";
-        btnEliminar.onclick = () => eliminarAmigo(index);
-
-        li.appendChild(btnEliminar);
-        listaAmigos.appendChild(li);
-    });
+        lista.appendChild(li);
+    }
 }
 
-function eliminarAmigo(index) {
-    amigos.splice(index, 1);
-    actualizarLista();
-}
-
+// Función para sortear un amigo al azar
 function sortearAmigo() {
     if (amigos.length === 0) {
-        alert("Agrega al menos un amigo antes de sortear.");
+        alert("No hay amigos en la lista para sortear.");
         return;
     }
-
-    // Seleccionar un amigo al azar
-    const indiceAleatorio = Math.floor(Math.random() * amigos.length);
-    const amigoSorteado = amigos[indiceAleatorio];
-
-    // Mostrar el resultado
-    const resultado = document.getElementById("resultado");
+    
+    let indiceAleatorio = Math.floor(Math.random() * amigos.length);
+    let amigoSorteado = amigos[indiceAleatorio];
+    
+    let resultado = document.getElementById("resultado");
     resultado.innerHTML = `<li>🎉 ¡El amigo secreto es: <strong>${amigoSorteado}</strong>! 🎉</li>`;
 }
